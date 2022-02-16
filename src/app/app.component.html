@@ -1,0 +1,18 @@
+<div class="container row d-flex justify-content-center">
+  <div class="col-6">
+    <app-build-jobs
+      department="Prod"
+      [data]="prodJenkinsJobs"
+      (add)="add(prodJenkinsJobs, $event)"
+      (remove)="remove(prodJenkinsJobs, $event)"
+    ></app-build-jobs>
+  </div>
+  <div class="col-6">
+    <app-build-jobs
+      department="Dev"
+      [data]="devJenkinsJobs"
+      (add)="add(devJenkinsJobs, $event)"
+      (remove)="remove(devJenkinsJobs, $event)"
+    ></app-build-jobs>
+  </div>
+</div>
