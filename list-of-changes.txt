@@ -1,0 +1,39 @@
+# List of problems and solutions
+
+Above a list of problems and solutions - please notice that there are also comments in the code itself
+
+Problem 1 -> ngModel - 2 way data binding on "label"
+Solution -> Specifically, in this example we don't have search on the list so I assumed that binding into a label string
+is not that necessary now. So I've created a "@ViewChild" reference to the label and I get the final value only when pressing "enter"
+Another way is to use the "change" event also to the get the value when pressing enter.
+But if we still need to two way data binding inside the "label" string we can use some debounce function from an external lib
+like "lodash"
+
+Problem 2 -> The ngFor loop does not contain any trackBy function
+Solution -> I've added an "id" property (a unique id) to the interface "BuildJob" in order to use a trackBy function 
+in the ngFor loop returning the "item.id" so angular will render only the "changed" elements on every cycle and not all the list.
+
+Problem 3 -> The two lists rendered contain a lot of data
+Solution -> Both for user experience in performance and user experience in going through big list, we need to cut the amount
+of data that is preseneted to the user - some of the options to solve this issue are "pagination", "progressive rendering" or "virtual scrolling".
+For this example I chose the angular material cdk virtual scrolling. I've implemented the virtual scrolling in a very simple way, returning the whole 
+list when a "job" i added or removed. I also added a resize event on "window" so the list shown to the user is according to the
+size of the page.
+
+Problem 4 -> The biggest performance issue I've found, calculating "complexity" under the ngFor loop in html
+Solution -> As we know, on every angular cycle the "complexity" was calculated again and again for every item.
+So the solution I chose is to add a property "complexity" to the BuildJob interface, calculate it only ONCE in the generator service
+and just use it in the template.
+
+
+Problem 4 -> Every remove we need to find the idx of the element to remove
+Solution -> A better aproach (for performance) will be to hold the data as a dictionay, having the "id" as the key
+of the dictionary that holds the data inside e.g.: 
+{
+    id: number,
+    data: {
+        name: string,
+        number: number,
+        complexity: number
+    }
+}

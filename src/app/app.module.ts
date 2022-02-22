@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BuildJobComponent } from './build-jobs/build-jobs.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { BuildJobComponent } from './build-jobs/build-jobs.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

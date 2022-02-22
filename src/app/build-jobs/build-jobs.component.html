@@ -3,17 +3,28 @@
 </h1>
 
 <div class="input-group mb-3">
-  <input type="text" class="form-control" [(ngModel)]="label" (keydown.enter)="handleEnterKey($event)" />
+  
+  <!--<1>--> <input type="text" id="label" #label class="form-control" (keydown.enter)="handleEnterKey($event)"/>
+  <!--<2> 
+    This is not causing performance issues but anyway we don't need data binding in this case,
+    we just need the final value of the input, we can take that value only when pressing enter
+    If still needed ngModel for some feature reasons we can use lodash or some other lib
+    to use debounce on "kyeDown"
+    <input type="text" class="form-control" [(ngModel)]="label1" (keydown.enter)="addRow($event)" />-->
+  <!--<3>  <input type="text" class="form-control" [value]="" (change)="change($event)" />-->
+  
 </div>
 
 <ul class="list-group">
-  <li class="list-group-item d-flex" *ngFor="let item of data">
-    <div class="mr-auto p-2">{{ item.name }}</div>
-    <div class="p-2">
-      <span class="badge badge-pill badge-primary">
-        {{ getComplexity(item.number) }}
-      </span>
-      <button title="Delete" class="btn btn-danger" (click)="remove.emit(item)">Delete</button>
-    </div>
-  </li>
+  <cdk-virtual-scroll-viewport itemSize="50">
+    <li class="list-group-item d-flex" *cdkVirtualFor="let item of dataSource; trackBy: trackByJobs">
+      <div class="mr-auto p-2">{{ item.name }}</div>
+      <div class="p-2">
+        <span class="badge badge-pill badge-primary">
+          {{ item.complexity }}
+        </span>
+        <button title="Delete" class="btn btn-danger" (click)="deleteRow(item)">Delete</button>
+      </div>
+    </li>
+  </cdk-virtual-scroll-viewport>
 </ul>
